@@ -11,7 +11,7 @@ const COLORS = {
 };
 
 const IMAGES = {
-  hero: 'https://www.dropbox.com/scl/fi/42qi5h7tgjowp2dznz62g/44-DSCF9424.jpg?rlkey=0broivycacv6nohfjz3he8r5r&st=qj7mm14t&raw=1',
+  hero: 'https://www.dropbox.com/scl/fi/qmadk4pvxzodjcmnb57fn/DSCF9023-1.jpg?rlkey=vorzvkd9q392049w8n2bjiimt&st=mspc8e5m&raw=1',
   profile: 'https://www.dropbox.com/scl/fi/bxpr1zf9h95yg79mynr0w/motion_photo_8482571686111546032.jpg?rlkey=hflxddfmseso1rvbayek1x7yx&st=vne585qz&raw=1',
   portfolio: [
     { url: 'https://www.dropbox.com/scl/fi/vo6wufruk809a1p4lpvmb/1-PHOT9323.jpg?rlkey=lpgaim6egffgjq1l6nf11ro3u&st=3x7ppc39&raw=1', alt: 'Sessão Infantil' },
@@ -28,13 +28,6 @@ const IMAGES = {
     { url: 'https://www.dropbox.com/scl/fi/tvwsnzp45ujxvpx6h99un/23-PHOT9530.jpg?rlkey=utxv2ccbrobt48gytitv4q5sm&st=f9x27y28&raw=1', alt: 'Pôr do Sol' },
     { url: 'https://www.dropbox.com/scl/fi/8mruefcdnsqqqlw9ivwfc/24-PHOT9531.jpg?rlkey=yu9qip4mliwpv68nux668tk48&st=0h1c7fau&raw=1', alt: 'Inocência' },
     { url: 'https://www.dropbox.com/scl/fi/35xg0etx06zh1h08m3mmy/26-PHOT9545.jpg?rlkey=43sgpsj67pkupiyt72v6etdr0&st=mmqaqgaw&raw=1', alt: 'Brincadeiras' },
-    { url: 'https://www.dropbox.com/scl/fi/rc5jll4y0vdh0rnv47sum/28-DSCF9265.jpg?rlkey=v21dibp22p7r0nora39e7wchz&st=12delt2f&raw=1', alt: 'Amor' },
-    { url: 'https://www.dropbox.com/scl/fi/rwflbs0eijolph2td9he6/41-DSCF9401.jpg?rlkey=sgwtr8rr7osrsitk8mlzmbrpa&st=3qohacw2&raw=1', alt: 'Abraços' },
-    { url: 'https://www.dropbox.com/scl/fi/jjfryqlcmgmmugknantzz/45-DSCF9426.jpg?rlkey=y1ziomh8wjv5va2emg4unn7hc&st=nvoxuf8s&raw=1', alt: 'Piquenique' },
-    { url: 'https://www.dropbox.com/scl/fi/rppwznv2vjxtmmed73t2p/38-DSCF9363.jpg?rlkey=4elwod7uva97gyerqwoeu3d59&st=albg0pza&raw=1', alt: 'Caminhada' },
-    { url: 'https://www.dropbox.com/scl/fi/7tn40svnt1t6anna7xdu5/42-DSCF9409.jpg?rlkey=58fgocurbp5fqvf37lfktvacb&st=ty3vhpnh&raw=1', alt: 'Sorrisos' },
-    { url: 'https://www.dropbox.com/scl/fi/r3fq2xnlg0my60v565b0r/46-DSCF9492.jpg?rlkey=kbwohksmtqe0kij50rn6ji3rb&st=mobn3ucz&raw=1', alt: 'Cumplicidade' },
-    { url: 'https://www.dropbox.com/scl/fi/cxn9y8c89zst4ish6vmi3/50-DSCF9616.jpg?rlkey=kzdzebxlly6uvcbgtgtpvrai6&st=reghvo77&raw=1', alt: 'Luz Natural' },
     { url: 'https://www.dropbox.com/scl/fi/1k0ux29cjc26ffhyjxlgz/49-DSCF9532.jpg?rlkey=yg8pz46kwg056of0poha6y3r3&st=t2g1dbbq&raw=1', alt: 'Olhares' },
     { url: 'https://www.dropbox.com/scl/fi/1r0hpeit7rhogl982ernu/52-DSCF9673.jpg?rlkey=9v3i0qxu0uai87z4w3wpz2oe5&st=qu14r57f&raw=1', alt: 'Essência' },
     { url: 'https://www.dropbox.com/scl/fi/vfyv3rypzbhx2lm8o3n9l/27-PHOT9548.jpg?rlkey=js5skla5uvnfwsdb1wfzdwflk&st=gi3tcf1i&raw=1', alt: 'Captura' },
@@ -44,6 +37,7 @@ const IMAGES = {
     { url: 'https://www.dropbox.com/scl/fi/nxqyvdx9pz7b5pfjpgniq/9-DSCF9089-1.jpg?rlkey=8hjqxzdhdbjpjkyg2yhgvcmzd&st=milhzppg&raw=1', alt: 'União' },
     { url: 'https://www.dropbox.com/scl/fi/ne33d96kh96lhy888li3j/17-PHOT9437.jpg?rlkey=wsekbsh618sttl5jgqd8u3pjh&st=woz600ey&raw=1', alt: 'Descoberta' },
     { url: 'https://www.dropbox.com/scl/fi/grenumg6thkpqqialjn7k/11-DSCF8983-1.jpg?rlkey=6bcuqphw2ir5sdf658fzt9fml&st=o3b1ce8h&raw=1', alt: 'Retrato Final' },
+    { url: 'https://www.dropbox.com/scl/fi/6lyd2auh7n4yqygtrqgy7/DSCF9002-1.jpg?rlkey=lnuchr1h0ad5m43y7ab0vd515&st=jsdtt9cf&raw=1', alt: 'Sessão Materna' },
   ]
 };
 
