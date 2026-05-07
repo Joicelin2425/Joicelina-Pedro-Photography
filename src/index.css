@@ -19,6 +19,11 @@
 }
 
 @layer base {
+  /* ESTA É A LINHA QUE ADICIONA O DESLIZAR SUAVE */
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
     @apply bg-brand-bg text-brand-dark font-sans font-medium leading-relaxed;
   }
