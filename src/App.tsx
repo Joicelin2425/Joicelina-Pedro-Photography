@@ -13,7 +13,7 @@ const COLORS = {
 const IMAGES = {
   hero: 'https://www.dropbox.com/scl/fi/qmadk4pvxzodjcmnb57fn/DSCF9023-1.jpg?rlkey=vorzvkd9q392049w8n2bjiimt&st=mspc8e5m&raw=1',
   profile: 'https://www.dropbox.com/scl/fi/bxpr1zf9h95yg79mynr0w/motion_photo_8482571686111546032.jpg?rlkey=hflxddfmseso1rvbayek1x7yx&st=vne585qz&raw=1',
-  portfolio: [
+  portfolio:[
     { url: 'https://www.dropbox.com/scl/fi/vo6wufruk809a1p4lpvmb/1-PHOT9323.jpg?rlkey=lpgaim6egffgjq1l6nf11ro3u&st=3x7ppc39&raw=1', alt: 'Sessão Infantil' },
     { url: 'https://www.dropbox.com/scl/fi/ryw0tvfa3gdkvml1cffhv/3-PHOT9339.jpg?rlkey=9kdro9xqj22ikons1jk8e5k1s&st=uu4kojck&raw=1', alt: 'Maternidade casal praia' },
     { url: 'https://www.dropbox.com/scl/fi/0usbjrfoqrftohwhi55dl/4-PHOT9347.jpg?rlkey=zixg5rlbvx3lgm0vv6n39d8s2&st=10x34re6&raw=1', alt: 'Família no parque' },
@@ -43,8 +43,8 @@ const IMAGES = {
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const[scrolled, setScrolled] = useState(false);
+  const[formSubmitted, setFormSubmitted] = useState(false);
 
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
@@ -57,13 +57,39 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
+  const navLinks =[
     { name: 'Sobre', href: '#sobre' },
     { name: 'Serviços', href: '#servicos' },
     { name: 'Preços', href: '#precos' },
     { name: 'Portfólio', href: '#portfolio' },
     { name: 'Agendar', href: '#agendamento' },
   ];
+
+  // FUNÇÃO ATUALIZADA COM O TEU LINK DO FORMSPREE
+  const handleFormSubmit = async (e: any) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+
+    try {
+      const response = await fetch('https://formspree.io/f/xaqvbzqk', {
+        method: 'POST',
+        body: data,
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        setFormSubmitted(true);
+        form.reset();
+      } else {
+        alert('Ups! Houve um problema ao enviar o formulário. Tente novamente.');
+      }
+    } catch (error) {
+      alert('Ups! Houve um erro de ligação. Verifique a sua internet e tente novamente.');
+    }
+  };
 
   return (
     <div className="min-h-screen selection:bg-brand-dark/20 selection:text-brand-dark">
@@ -151,7 +177,6 @@ export default function App() {
           />
           <div className="absolute inset-0 bg-brand-dark/20" />
           
-          {/* Top Text - Centered */}
           <div className="absolute top-12 left-0 right-0 flex justify-center">
             <motion.span 
               initial={{ opacity: 0, y: -20 }}
@@ -315,7 +340,7 @@ export default function App() {
             },
             { 
               title: 'Ensaio de Família', 
-              desc: 'Momentos genuínos entre famílias, com foco na conexão e emoção.',
+              desc: 'Momentos genuínos entre families, com foco na conexão e emoção.',
             },
             { 
               title: 'Batizados e Eventos Familiares', 
@@ -438,9 +463,6 @@ export default function App() {
                 alt={img.alt}
                 className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-brand-dark/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex flex-col justify-end p-10 text-brand-light">
-                 {/* Text overlays removed as per user request */}
-              </div>
             </motion.div>
           ))}
         </div>
@@ -528,13 +550,12 @@ export default function App() {
 
       {/* Booking Form */}
       <section id="agendamento" className="py-24 px-6 bg-brand-light relative overflow-hidden">
-        {/* Subtle decorative elements */}
         <div className="absolute -top-10 -right-10 w-64 h-64 border border-brand-dark/5 rounded-full" />
         <div className="absolute -bottom-20 -left-20 w-96 h-96 border border-brand-dark/5 rounded-full" />
 
         <div className="max-w-3xl mx-auto relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl uppercase tracking-[0.3em] font-serif mb-6 text-brand-dark">Marcar Sessão</h2>
+            <h2 className="text-3xl md:text-4xl uppercase tracking-[0.3em] font-serif mb-6 text-brand-dark">Marcar Sessão / Feedback</h2>
             <p className="max-w-md mx-auto opacity-60 leading-relaxed font-serif italic text-lg text-brand-dark">
               Deixe os seus dados e conte-me um pouco sobre a sua ideia. Responderei em breve com todo o carinho.
             </p>
@@ -542,10 +563,7 @@ export default function App() {
 
           <form 
             className="space-y-12"
-            onSubmit={(e) => {
-              e.preventDefault();
-              setFormSubmitted(true);
-            }}
+            onSubmit={handleFormSubmit}
           >
             {formSubmitted ? (
                <motion.div 
@@ -559,6 +577,7 @@ export default function App() {
                  <h3 className="text-3xl font-serif text-brand-dark mb-4">Mensagem Enviada</h3>
                  <p className="text-brand-dark opacity-70 font-serif italic mb-10">Obrigado pelo seu contacto. Em breve entraremos em contacto consigo com todo o carinho.</p>
                  <button 
+                   type="button"
                    onClick={() => setFormSubmitted(false)}
                    className="text-[10px] uppercase tracking-widest font-bold border-b border-brand-dark pb-2 hover:text-brand-accent hover:border-brand-accent transition-all text-brand-dark"
                  >
@@ -570,22 +589,22 @@ export default function App() {
                 <div className="grid md:grid-cols-2 gap-12">
                   <div className="group">
                     <label className="block text-[10px] uppercase tracking-widest font-bold mb-2 opacity-60 group-focus-within:text-brand-dark group-focus-within:opacity-100 transition-all text-brand-dark">Nome Completo</label>
-                    <input type="text" required className="w-full bg-transparent border-b border-brand-dark/20 focus:border-brand-dark outline-none py-2 text-[15px] transition-colors text-brand-dark" />
+                    <input type="text" name="nome" required className="w-full bg-transparent border-b border-brand-dark/20 focus:border-brand-dark outline-none py-2 text-[15px] transition-colors text-brand-dark" />
                   </div>
                   <div className="group">
                     <label className="block text-[10px] uppercase tracking-widest font-bold mb-2 opacity-60 group-focus-within:text-brand-dark group-focus-within:opacity-100 transition-all text-brand-dark">WhatsApp / Telefone</label>
-                    <input type="tel" required className="w-full bg-transparent border-b border-brand-dark/20 focus:border-brand-dark outline-none py-2 text-[15px] transition-colors text-brand-dark" />
+                    <input type="tel" name="telefone" required className="w-full bg-transparent border-b border-brand-dark/20 focus:border-brand-dark outline-none py-2 text-[15px] transition-colors text-brand-dark" />
                   </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-12">
                   <div className="group">
                     <label className="block text-[10px] uppercase tracking-widest font-bold mb-2 opacity-60 group-focus-within:text-brand-dark group-focus-within:opacity-100 transition-all text-brand-dark">Endereço de E-mail</label>
-                    <input type="email" required className="w-full bg-transparent border-b border-brand-dark/20 focus:border-brand-dark outline-none py-2 text-[15px] transition-colors text-brand-dark" />
+                    <input type="email" name="email" required className="w-full bg-transparent border-b border-brand-dark/20 focus:border-brand-dark outline-none py-2 text-[15px] transition-colors text-brand-dark" />
                   </div>
                   <div className="group">
                     <label className="block text-[10px] uppercase tracking-widest font-bold mb-2 opacity-60 group-focus-within:text-brand-dark group-focus-within:opacity-100 transition-all text-brand-dark">Tipo de Serviço</label>
-                    <select required className="w-full bg-transparent border-b border-brand-dark/20 focus:border-brand-dark outline-none py-2 text-[14px] transition-colors appearance-none text-brand-dark">
+                    <select name="servico" required className="w-full bg-transparent border-b border-brand-dark/20 focus:border-brand-dark outline-none py-2 text-[14px] transition-colors appearance-none text-brand-dark">
                       <option value="">Selecione...</option>
                       <option value="infantil">Ensaio Infantil</option>
                       <option value="familia">Ensaio de Família</option>
@@ -599,25 +618,26 @@ export default function App() {
                 <div className="grid md:grid-cols-2 gap-12">
                   <div className="group">
                     <label className="block text-[10px] uppercase tracking-widest font-bold mb-2 opacity-60 group-focus-within:text-brand-dark group-focus-within:opacity-100 transition-all text-brand-dark">Data Pretendida</label>
-                    <input type="date" required className="w-full bg-transparent border-b border-brand-dark/20 focus:border-brand-dark outline-none py-2 text-[14px] transition-colors text-brand-dark" />
+                    <input type="date" name="data" required className="w-full bg-transparent border-b border-brand-dark/20 focus:border-brand-dark outline-none py-2 text-[14px] transition-colors text-brand-dark" />
                   </div>
                   <div className="group">
                     <label className="block text-[10px] uppercase tracking-widest font-bold mb-2 opacity-60 group-focus-within:text-brand-dark group-focus-within:opacity-100 transition-all text-brand-dark">Localização</label>
-                    <input type="text" placeholder="Lisboa e arredores" className="w-full bg-transparent border-b border-brand-dark/20 focus:border-brand-dark outline-none py-2 text-[15px] transition-colors text-brand-dark" />
+                    <input type="text" name="localizacao" placeholder="Lisboa e arredores" className="w-full bg-transparent border-b border-brand-dark/20 focus:border-brand-dark outline-none py-2 text-[15px] transition-colors text-brand-dark" />
                   </div>
                 </div>
 
                 <div className="group">
                   <label className="block text-[10px] uppercase tracking-widest font-bold mb-2 opacity-60 group-focus-within:text-brand-dark group-focus-within:opacity-100 transition-all text-brand-dark">Mensagem & Detalhes</label>
-                  <textarea rows={4} placeholder="Conte-nos mais sobre o seu momento..." className="w-full bg-transparent border-b border-brand-dark/20 focus:border-brand-dark outline-none py-2 text-[15px] transition-colors resize-none mb-4 text-brand-dark" />
+                  <textarea name="mensagem" rows={4} placeholder="Conte-nos mais sobre o seu momento..." className="w-full bg-transparent border-b border-brand-dark/20 focus:border-brand-dark outline-none py-2 text-[15px] transition-colors resize-none mb-4 text-brand-dark" />
                 </div>
 
                 <motion.button
                   whileHover={{ scale: 1.01 }}
                   whileTap={{ scale: 0.99 }}
+                  type="submit"
                   className="w-full bg-brand-accent text-white py-6 text-[13px] uppercase tracking-[0.3em] font-medium shadow-xl hover:bg-brand-dark transition-colors flex items-center justify-center gap-4"
                 >
-                  Marcar Agora <Send size={16} />
+                  Enviar <Send size={16} />
                 </motion.button>
               </>
             )}
@@ -630,7 +650,7 @@ export default function App() {
         <div className="flex-1 bg-brand-light p-12 md:p-24 flex flex-col justify-center">
             <h2 className="text-3xl uppercase tracking-widest font-serif mb-12 text-brand-dark">Contactos</h2>
             <div className="space-y-8">
-              <div className="flex items-center gap-6 group cursor-pointer">
+              <a href="https://wa.me/351964552241" target="_blank" rel="noreferrer" className="flex items-center gap-6 group cursor-pointer">
                 <div className="w-12 h-12 rounded-full border border-brand-dark/10 flex items-center justify-center group-hover:bg-brand-dark group-hover:text-brand-light transition-all text-brand-dark group-hover:text-brand-light">
                   <Phone size={20} />
                 </div>
@@ -638,17 +658,17 @@ export default function App() {
                   <span className="text-[10px] uppercase tracking-widest opacity-50 font-bold text-brand-dark">WhatsApp</span>
                   <span className="text-lg font-serif text-brand-dark">+351 964 552 241</span>
                 </div>
-              </div>
+              </a>
 
-              <div className="flex items-center gap-6 group cursor-pointer text-brand-dark">
+              <a href="https://instagram.com/JoicelinaPedroPhotography" target="_blank" rel="noreferrer" className="flex items-center gap-6 group cursor-pointer text-brand-dark">
                 <div className="w-12 h-12 rounded-full border border-brand-dark/10 flex items-center justify-center group-hover:bg-brand-dark group-hover:text-brand-light transition-all">
                   <Instagram size={20} />
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[10px] uppercase tracking-widest opacity-50 font-bold">Instagram</span>
-                  <a href="https://instagram.com/JoicelinaPedroPhotography" target="_blank" className="text-lg font-serif text-brand-dark">@JoicelinaPedroPhotography</a>
+                  <span className="text-lg font-serif text-brand-dark">@JoicelinaPedroPhotography</span>
                 </div>
-              </div>
+              </a>
 
               <div className="flex items-center gap-6 group cursor-pointer text-brand-dark">
                 <div className="w-12 h-12 rounded-full border border-brand-dark/10 flex items-center justify-center group-hover:bg-brand-dark group-hover:text-brand-light transition-all">
