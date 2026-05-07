@@ -42,11 +42,11 @@ const IMAGES = {
 };
 
 export default function App() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const[isMenuOpen, setIsMenuOpen] = useState(false);
   const[scrolled, setScrolled] = useState(false);
   const[formSubmitted, setFormSubmitted] = useState(false);
 
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const[openFaq, setOpenFaq] = useState<number | null>(null);
 
   const PROMO_END_DATE = new Date('2026-05-21T00:00:00');
   const showPromo = new Date() < PROMO_END_DATE;
@@ -266,7 +266,8 @@ export default function App() {
                 playsInline
                 className="w-full h-full object-cover grayscale-[0.2] scale-[1.1]"
               >
-                <source src="https://www.dropbox.com/scl/fi/gzuncegpl4xofmao61n3s/essenciapap_2-Trim.mp4?rlkey=g8xma8bf70vtytlcznsp3sc7d&st=o2yuh8x1&raw=1" type="video/mp4" />
+                {/* AQUI ESTÁ O NOVO VÍDEO (com o raw=1 para funcionar em HTML) */}
+                <source src="https://www.dropbox.com/scl/fi/1v4p2fxm7pzl14sr071w1/0507-1.mp4?rlkey=ahy2ydysccoqe5qhaynpvh6eb&st=i3vhmwob&raw=1" type="video/mp4" />
                 O seu navegador não suporta a tag de vídeo.
               </video>
               <div className="absolute inset-0 bg-brand-dark/10" />
