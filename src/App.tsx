@@ -45,8 +45,10 @@ export default function App() {
   const[isMenuOpen, setIsMenuOpen] = useState(false);
   const[scrolled, setScrolled] = useState(false);
   const[formSubmitted, setFormSubmitted] = useState(false);
-
   const[openFaq, setOpenFaq] = useState<number | null>(null);
+  
+  // --- NOVO: Estado para o Banner de Cookies ---
+  const[showCookieBanner, setShowCookieBanner] = useState(false);
 
   const PROMO_END_DATE = new Date('2026-05-21T00:00:00');
   const showPromo = new Date() < PROMO_END_DATE;
@@ -54,8 +56,21 @@ export default function App() {
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
+    
+    // --- NOVO: Verifica se os cookies já foram aceites ---
+    const cookiesAceites = localStorage.getItem('cookiesAceites');
+    if (!cookiesAceites) {
+      setShowCookieBanner(true); // Se não foram aceites, mostra o banner
+    }
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // --- NOVO: Função para aceitar os cookies ---
+  const handleAcceptCookies = () => {
+    localStorage.setItem('cookiesAceites', 'true');
+    setShowCookieBanner(false);
+  };
 
   const navLinks =[
     { name: 'Sobre', href: '#sobre' },
@@ -65,7 +80,6 @@ export default function App() {
     { name: 'Agendar', href: '#agendamento' },
   ];
 
-  // FUNÇÃO ATUALIZADA COM O TEU LINK DO FORMSPREE
   const handleFormSubmit = async (e: any) => {
     e.preventDefault();
     const form = e.target;
@@ -92,13 +106,33 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen selection:bg-brand-dark/20 selection:text-brand-dark">
+    <div className="min-h-screen selection:bg-brand-dark/20 selection:text-brand-dark relative">
+      
+      {/* NOVO: BANNER DE COOKIES */}
+      {showCookieBanner && (
+        <motion.div 
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          className="fixed bottom-0 left-0 w-full bg-brand-dark border-t border-brand-accent/30 p-4 z-[9999] flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-4 shadow-2xl"
+        >
+          <p className="text-[12px] md:text-[14px] text-brand-light font-medium text-center sm:text-left">
+            Utilizamos cookies para garantir que tem a melhor experiência no nosso site.
+          </p>
+          <button 
+            onClick={handleAcceptCookies}
+            className="bg-brand-accent text-white px-8 py-3 text-[11px] uppercase tracking-widest hover:bg-brand-light hover:text-brand-dark transition-colors font-bold"
+          >
+            Aceitar e Fechar
+          </button>
+        </motion.div>
+      )}
+
       {/* WhatsApp Float */}
       <motion.a
         href="https://wa.me/351964552241"
         target="_blank"
         rel="noreferrer"
-        className="fixed bottom-8 right-8 z-[100] bg-[#25D366] text-white p-4 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform"
+        className="fixed bottom-20 right-8 z-[100] bg-[#25D366] text-white p-4 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         whileHover={{ y: -5 }}
@@ -266,7 +300,6 @@ export default function App() {
                 playsInline
                 className="w-full h-full object-cover grayscale-[0.2] scale-[1.1]"
               >
-                {/* AQUI ESTÁ O NOVO VÍDEO (com o raw=1 para funcionar em HTML) */}
                 <source src="https://www.dropbox.com/scl/fi/1v4p2fxm7pzl14sr071w1/0507-1.mp4?rlkey=ahy2ydysccoqe5qhaynpvh6eb&st=i3vhmwob&raw=1" type="video/mp4" />
                 O seu navegador não suporta a tag de vídeo.
               </video>
