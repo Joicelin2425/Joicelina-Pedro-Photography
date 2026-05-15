@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { Instagram, Send, Star, MapPin, Phone, Mail, ChevronRight, Menu, X, Baby, Users, Camera, Palette } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react'; // <-- AQUI ESTÁ A TUA ANTENA DO VERCEL
 
 const COLORS = {
   bg: '#EBDFD6',
@@ -47,7 +48,7 @@ export default function App() {
   const[formSubmitted, setFormSubmitted] = useState(false);
   const[openFaq, setOpenFaq] = useState<number | null>(null);
   
-  // --- NOVO: Estado para o Banner de Cookies ---
+  // Banner de Cookies
   const[showCookieBanner, setShowCookieBanner] = useState(false);
 
   const PROMO_END_DATE = new Date('2026-05-21T00:00:00');
@@ -57,16 +58,15 @@ export default function App() {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     
-    // --- NOVO: Verifica se os cookies já foram aceites ---
+    // Verifica cookies
     const cookiesAceites = localStorage.getItem('cookiesAceites');
     if (!cookiesAceites) {
-      setShowCookieBanner(true); // Se não foram aceites, mostra o banner
+      setShowCookieBanner(true);
     }
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // --- NOVO: Função para aceitar os cookies ---
   const handleAcceptCookies = () => {
     localStorage.setItem('cookiesAceites', 'true');
     setShowCookieBanner(false);
@@ -89,9 +89,7 @@ export default function App() {
       const response = await fetch('https://formspree.io/f/xaqvbzqk', {
         method: 'POST',
         body: data,
-        headers: {
-          Accept: 'application/json',
-        },
+        headers: { Accept: 'application/json' },
       });
 
       if (response.ok) {
@@ -108,7 +106,7 @@ export default function App() {
   return (
     <div className="min-h-screen selection:bg-brand-dark/20 selection:text-brand-dark relative">
       
-      {/* NOVO: BANNER DE COOKIES */}
+      {/* BANNER DE COOKIES */}
       {showCookieBanner && (
         <motion.div 
           initial={{ y: 100, opacity: 0 }}
@@ -127,9 +125,9 @@ export default function App() {
         </motion.div>
       )}
 
-      {/* WhatsApp Float */}
+      {/* WhatsApp Float MELHORADO */}
       <motion.a
-        href="https://wa.me/351964552241"
+        href="https://wa.me/351964552241?text=Olá%20Joicelina!%20Estive%20a%20ver%20o%20teu%20portfólio%20e%20gostaria%20de%20saber%20mais%20informações."
         target="_blank"
         rel="noreferrer"
         className="fixed bottom-20 right-8 z-[100] bg-[#25D366] text-white p-4 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform"
@@ -684,7 +682,7 @@ export default function App() {
         <div className="flex-1 bg-brand-light p-12 md:p-24 flex flex-col justify-center">
             <h2 className="text-3xl uppercase tracking-widest font-serif mb-12 text-brand-dark">Contactos</h2>
             <div className="space-y-8">
-              <a href="https://wa.me/351964552241" target="_blank" rel="noreferrer" className="flex items-center gap-6 group cursor-pointer">
+              <a href="https://wa.me/351964552241?text=Olá%20Joicelina!%20Estive%20a%20ver%20o%20teu%20portfólio%20e%20gostaria%20de%20saber%20mais%20informações." target="_blank" rel="noreferrer" className="flex items-center gap-6 group cursor-pointer">
                 <div className="w-12 h-12 rounded-full border border-brand-dark/10 flex items-center justify-center group-hover:bg-brand-dark group-hover:text-brand-light transition-all text-brand-dark group-hover:text-brand-light">
                   <Phone size={20} />
                 </div>
@@ -736,7 +734,7 @@ export default function App() {
                   <a href="https://instagram.com/JoicelinaPedroPhotography" target="_blank" className="hover:text-brand-gold transition-colors block border border-brand-light/20 p-3 rounded-full">
                     <Instagram size={24} />
                   </a>
-                  <a href="https://wa.me/351964552241" target="_blank" className="hover:text-brand-gold transition-colors block border border-brand-light/20 p-3 rounded-full">
+                  <a href="https://wa.me/351964552241?text=Olá%20Joicelina!%20Estive%20a%20ver%20o%20teu%20portfólio%20e%20gostaria%20de%20saber%20mais%20informações." target="_blank" className="hover:text-brand-gold transition-colors block border border-brand-light/20 p-3 rounded-full">
                     <Phone size={24} />
                   </a>
                </div>
@@ -770,6 +768,9 @@ export default function App() {
           </div>
         </div>
       </footer>
+      
+      {/* VERCEL ANALYTICS COMPONENT */}
+      <Analytics />
     </div>
   );
 }
